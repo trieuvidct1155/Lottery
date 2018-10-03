@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLiBanVeSoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DAILI">
+    <Key>
+      <PropertyRef Name="MaDL" />
+    </Key>
+    <Property Name="MaDL" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenDL" Type="nvarchar" MaxLength="50" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="250" />
+    <Property Name="Sdt" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'QuanLiBanVeSo.dbo.DANGKISOLUONG' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="DANGKISOLUONG">
+    <Key>
+      <PropertyRef Name="MaDL" />
+    </Key>
+    <Property Name="MaDL" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SoLuongDK" Type="nvarchar" MaxLength="50" />
+    <Property Name="NgayDK" Type="datetime" />
+  </EntityType>
+  <EntityType Name="LOAIVESO">
+    <Key>
+      <PropertyRef Name="MaLoaiVS" />
+    </Key>
+    <Property Name="MaLoaiVS" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenLoaiVS" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'QuanLiBanVeSo.dbo.VESODAILI' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="VESODAILI">
+          <Property Name="MaLoaiVS" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaDL" Type="nvarchar" MaxLength="50" />
+          <Property Name="SLGiao" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgayGiao" Type="nvarchar" MaxLength="50" />
+          <Property Name="SLBanDuoc" Type="nvarchar" MaxLength="50" />
+        </EntityType>-->
+  <Association Name="FK_DANGKISOLUONG_DAILI">
+    <End Role="DAILI" Type="Self.DAILI" Multiplicity="1" />
+    <End Role="DANGKISOLUONG" Type="Self.DANGKISOLUONG" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="DAILI">
+        <PropertyRef Name="MaDL" />
+      </Principal>
+      <Dependent Role="DANGKISOLUONG">
+        <PropertyRef Name="MaDL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+error 6004: The table 'QuanLiBanVeSo.dbo.VESODAILI' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_VESODAILI_DAILI" />-->
+  <!--Errors Found During Generation:
+error 6004: The table 'QuanLiBanVeSo.dbo.VESODAILI' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_VESODAILI_LOAIVESO" />-->
+  <EntityContainer Name="QuanLiBanVeSoModelStoreContainer">
+    <EntitySet Name="DAILI" EntityType="Self.DAILI" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LOAIVESO" EntityType="Self.LOAIVESO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DANGKISOLUONG" EntityType="Self.DANGKISOLUONG" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DANGKISOLUONG].[MaDL] AS [MaDL], 
+    [DANGKISOLUONG].[SoLuongDK] AS [SoLuongDK], 
+    [DANGKISOLUONG].[NgayDK] AS [NgayDK]
+    FROM [dbo].[DANGKISOLUONG] AS [DANGKISOLUONG]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_DANGKISOLUONG_DAILI" Association="Self.FK_DANGKISOLUONG_DAILI">
+      <End Role="DAILI" EntitySet="DAILI" />
+      <End Role="DANGKISOLUONG" EntitySet="DANGKISOLUONG" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QuanLiBanVeSoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DAILI">
+          <Key>
+            <PropertyRef Name="MaDL" />
+          </Key>
+          <Property Name="MaDL" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TenDL" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="250" />
+          <Property Name="Sdt" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QuanLiBanVeSo.dbo.DANGKISOLUONG' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DANGKISOLUONG">
+          <Key>
+            <PropertyRef Name="MaDL" />
+          </Key>
+          <Property Name="MaDL" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SoLuongDK" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgayDK" Type="datetime" />
+        </EntityType>
+        <EntityType Name="LOAIVESO">
+          <Key>
+            <PropertyRef Name="MaLoaiVS" />
+          </Key>
+          <Property Name="MaLoaiVS" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TenLoaiVS" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'QuanLiBanVeSo.dbo.VESODAILI' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="VESODAILI">
+          <Property Name="MaLoaiVS" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaDL" Type="nvarchar" MaxLength="50" />
+          <Property Name="SLGiao" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgayGiao" Type="nvarchar" MaxLength="50" />
+          <Property Name="SLBanDuoc" Type="nvarchar" MaxLength="50" />
+        </EntityType>-->
+        <Association Name="FK_DANGKISOLUONG_DAILI">
+          <End Role="DAILI" Type="Self.DAILI" Multiplicity="1" />
+          <End Role="DANGKISOLUONG" Type="Self.DANGKISOLUONG" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="DAILI">
+              <PropertyRef Name="MaDL" />
+            </Principal>
+            <Dependent Role="DANGKISOLUONG">
+              <PropertyRef Name="MaDL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+error 6004: The table 'QuanLiBanVeSo.dbo.VESODAILI' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_VESODAILI_DAILI" />-->
+        <!--Errors Found During Generation:
+error 6004: The table 'QuanLiBanVeSo.dbo.VESODAILI' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_VESODAILI_LOAIVESO" />-->
+        <EntityContainer Name="QuanLiBanVeSoModelStoreContainer">
+          <EntitySet Name="DAILI" EntityType="Self.DAILI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOAIVESO" EntityType="Self.LOAIVESO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DANGKISOLUONG" EntityType="Self.DANGKISOLUONG" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DANGKISOLUONG].[MaDL] AS [MaDL], 
+    [DANGKISOLUONG].[SoLuongDK] AS [SoLuongDK], 
+    [DANGKISOLUONG].[NgayDK] AS [NgayDK]
+    FROM [dbo].[DANGKISOLUONG] AS [DANGKISOLUONG]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_DANGKISOLUONG_DAILI" Association="Self.FK_DANGKISOLUONG_DAILI">
+            <End Role="DAILI" EntitySet="DAILI" />
+            <End Role="DANGKISOLUONG" EntitySet="DANGKISOLUONG" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QuanLiBanVeSoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DAILI">
+          <Key>
+            <PropertyRef Name="MaDL" />
+          </Key>
+          <Property Name="MaDL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenDL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Sdt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DANGKISOLUONG" Relationship="Self.FK_DANGKISOLUONG_DAILI" FromRole="DAILI" ToRole="DANGKISOLUONG" />
+        </EntityType>
+        <EntityType Name="LOAIVESO">
+          <Key>
+            <PropertyRef Name="MaLoaiVS" />
+          </Key>
+          <Property Name="MaLoaiVS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenLoaiVS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DANGKISOLUONG">
+          <Key>
+            <PropertyRef Name="MaDL" />
+          </Key>
+          <Property Name="MaDL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SoLuongDK" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgayDK" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DAILI" Relationship="Self.FK_DANGKISOLUONG_DAILI" FromRole="DANGKISOLUONG" ToRole="DAILI" />
+        </EntityType>
+        <Association Name="FK_DANGKISOLUONG_DAILI">
+          <End Role="DAILI" Type="Self.DAILI" Multiplicity="1" />
+          <End Role="DANGKISOLUONG" Type="Self.DANGKISOLUONG" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="DAILI">
+              <PropertyRef Name="MaDL" />
+            </Principal>
+            <Dependent Role="DANGKISOLUONG">
+              <PropertyRef Name="MaDL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LotteryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DAILIs" EntityType="Self.DAILI" />
+          <EntitySet Name="LOAIVESOes" EntityType="Self.LOAIVESO" />
+          <EntitySet Name="DANGKISOLUONGs" EntityType="Self.DANGKISOLUONG" />
+          <AssociationSet Name="FK_DANGKISOLUONG_DAILI" Association="Self.FK_DANGKISOLUONG_DAILI">
+            <End Role="DAILI" EntitySet="DAILIs" />
+            <End Role="DANGKISOLUONG" EntitySet="DANGKISOLUONGs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QuanLiBanVeSoModelStoreContainer" CdmEntityContainer="LotteryEntities">
+          <EntitySetMapping Name="DAILIs">
+            <EntityTypeMapping TypeName="QuanLiBanVeSoModel.DAILI">
+              <MappingFragment StoreEntitySet="DAILI">
+                <ScalarProperty Name="MaDL" ColumnName="MaDL" />
+                <ScalarProperty Name="TenDL" ColumnName="TenDL" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="Sdt" ColumnName="Sdt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOAIVESOes">
+            <EntityTypeMapping TypeName="QuanLiBanVeSoModel.LOAIVESO">
+              <MappingFragment StoreEntitySet="LOAIVESO">
+                <ScalarProperty Name="MaLoaiVS" ColumnName="MaLoaiVS" />
+                <ScalarProperty Name="TenLoaiVS" ColumnName="TenLoaiVS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DANGKISOLUONGs">
+            <EntityTypeMapping TypeName="QuanLiBanVeSoModel.DANGKISOLUONG">
+              <MappingFragment StoreEntitySet="DANGKISOLUONG">
+                <ScalarProperty Name="MaDL" ColumnName="MaDL" />
+                <ScalarProperty Name="SoLuongDK" ColumnName="SoLuongDK" />
+                <ScalarProperty Name="NgayDK" ColumnName="NgayDK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

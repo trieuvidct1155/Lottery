@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BANVESO.Models.DAILI>
+
+@{
+    ViewBag.Title = "Agency";
+}
+
+<h2>Agency</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenDL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sdt)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenDL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sdt)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaDL }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaDL }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaDL })
+            </td>
+        </tr>
+    }
+
+</table>

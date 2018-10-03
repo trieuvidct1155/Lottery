@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QuanLiBanVeSoModelStoreContainer" CdmEntityContainer="LotteryEntities">
+    <EntitySetMapping Name="DAILIs">
+      <EntityTypeMapping TypeName="QuanLiBanVeSoModel.DAILI">
+        <MappingFragment StoreEntitySet="DAILI">
+          <ScalarProperty Name="MaDL" ColumnName="MaDL" />
+          <ScalarProperty Name="TenDL" ColumnName="TenDL" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="Sdt" ColumnName="Sdt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LOAIVESOes">
+      <EntityTypeMapping TypeName="QuanLiBanVeSoModel.LOAIVESO">
+        <MappingFragment StoreEntitySet="LOAIVESO">
+          <ScalarProperty Name="MaLoaiVS" ColumnName="MaLoaiVS" />
+          <ScalarProperty Name="TenLoaiVS" ColumnName="TenLoaiVS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DANGKISOLUONGs">
+      <EntityTypeMapping TypeName="QuanLiBanVeSoModel.DANGKISOLUONG">
+        <MappingFragment StoreEntitySet="DANGKISOLUONG">
+          <ScalarProperty Name="MaDL" ColumnName="MaDL" />
+          <ScalarProperty Name="SoLuongDK" ColumnName="SoLuongDK" />
+          <ScalarProperty Name="NgayDK" ColumnName="NgayDK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
